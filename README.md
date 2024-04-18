@@ -32,7 +32,7 @@ You have the option to either fork the repository or clone it.
 2. **Clone the Forked Repository:**
 
 ```bash
-git clone https://github.com/<your-username>/patients-portal.git
+git clone https://github.com/<DizBalanser>/patients-portal.git
 ```
 
 
