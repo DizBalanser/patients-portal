@@ -33,19 +33,42 @@ class PatientAPIController:
     """
 
     def create_patient(self):
-        pass
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "No input data provided"}), 400
+        patient_id = self.patient_db.add_patient(data)
+        if patient_id:
+            return jsonify({"message": "Patient created successfully", "patient_id": patient_id}), 201
+        else:
+            return jsonify({"error": "Failed to create patient"}), 400
 
     def get_patients(self):
-        pass
+        patients = self.patient_db.get_all_patients()
+        return jsonify(patients), 200
 
     def get_patient(self, patient_id):
-        pass
+        patient = self.patient_db.get_patient_by_id(patient_id)
+        if patient:
+            return jsonify(patient), 200
+        else:
+            return jsonify({"error": "Patient not found"}), 404
 
     def update_patient(self, patient_id):
-        pass
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "No input data provided"}), 400
+        updated = self.patient_db.update_patient_by_id(patient_id, data)
+        if updated:
+            return jsonify({"message": "Patient updated successfully"}), 200
+        else:
+            return jsonify({"error": "Failed to update patient"}), 400
 
     def delete_patient(self, patient_id):
-        pass
+        deleted = self.patient_db.delete_patient_by_id(patient_id)
+        if deleted:
+            return jsonify({"message": "Patient deleted successfully"}), 200
+        else:
+            return jsonify({"error": "Failed to delete patient"}), 400
 
     def run(self):
         """
